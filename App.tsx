@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
+import About from './components/About';
 import Projects from './components/Projects';
 import Skills from './components/Skills';
 import Contact from './components/Contact';
@@ -41,6 +42,25 @@ const App: React.FC = () => {
     };
   }, []);
 
+  useEffect(() => {
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const href = this.getAttribute('href');
+        if (href && href !== '#') {
+          const targetElement = document.querySelector(href);
+          if (targetElement) {
+            targetElement.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start',
+            });
+          }
+        }
+      });
+    });
+  }, []);
+
   const addToRefs = (el: HTMLElement | null) => {
     if (el && !sectionsRef.current.includes(el)) {
       sectionsRef.current.push(el);
@@ -54,6 +74,7 @@ const App: React.FC = () => {
       <Header />
       <main className="flex-grow">
         <Hero ref={addToRefs} />
+        <About ref={addToRefs} />
         <Projects ref={addToRefs} />
         <Skills ref={addToRefs} />
         <Contact ref={addToRefs} />
