@@ -6,6 +6,7 @@ import Projects from './components/Projects';
 import Skills from './components/Skills';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import ScrollToTop from './components/ScrollToTop';
 
 const App: React.FC = () => {
   const sectionsRef = useRef<HTMLElement[]>([]);
@@ -80,6 +81,7 @@ const App: React.FC = () => {
         <Contact ref={addToRefs} />
       </main>
       <Footer />
+      <ScrollToTop />
     </div>
   );
 };
