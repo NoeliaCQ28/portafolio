@@ -40,7 +40,7 @@ npm install
 npm run dev
 ```
 
-4. Abre tu navegador en `http://localhost:3000`
+4. Abre tu navegador en `http://localhost:5173`
 
 ## 🏗️ Scripts Disponibles
 
