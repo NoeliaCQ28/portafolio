@@ -10,7 +10,9 @@ Un portafolio moderno y atractivo construido con React, TypeScript, Vite y Frame
 - 📱 Diseño 100% responsivo
 - 🎯 Efectos 3D en tarjetas de proyectos
 - 📊 Barras de progreso animadas para habilidades
-- 📝 Formulario de contacto con validación
+- 📝 Formulario de contacto funcional con EmailJS
+- 📈 Barra de progreso de scroll
+- ⬆️ Botón "Scroll to Top" con indicador circular
 - ⚡ Rendimiento optimizado con Vite
 
 ## 🛠️ Tecnologías Utilizadas
@@ -20,6 +22,7 @@ Un portafolio moderno y atractivo construido con React, TypeScript, Vite y Frame
 - **Vite** - Build tool ultrarrápido
 - **Framer Motion** - Animaciones profesionales
 - **Tailwind CSS** - Estilos utility-first
+- **EmailJS** - Servicio de envío de emails
 - **Google Fonts** - Tipografía (Playfair Display + Inter)
 
 ## 📋 Instalación
@@ -40,7 +43,48 @@ npm install
 npm run dev
 ```
 
-4. Abre tu navegador en `http://localhost:5173`
+4. Configura las variables de entorno para EmailJS (opcional):
+```bash
+cp .env.example .env
+# Edita .env con tus credenciales de EmailJS
+```
+
+5. Abre tu navegador en `http://localhost:5173`
+
+## 📧 Configuración de EmailJS (Formulario de Contacto)
+
+Para que el formulario de contacto funcione y reciba emails reales:
+
+1. **Crea una cuenta en [EmailJS](https://www.emailjs.com/)**
+   - Es gratis hasta 200 emails/mes
+
+2. **Configura un servicio de email:**
+   - Ve a "Email Services" y conecta tu cuenta (Gmail, Outlook, etc.)
+   - Copia el **Service ID**
+
+3. **Crea un template de email:**
+   - Ve a "Email Templates" y crea un nuevo template
+   - Usa estas variables en tu template:
+     - `{{from_name}}` - Nombre del remitente
+     - `{{from_email}}` - Email del remitente
+     - `{{message}}` - Mensaje
+     - `{{to_name}}` - Tu nombre
+   - Copia el **Template ID**
+
+4. **Obtén tu Public Key:**
+   - Ve a "Account" → "General"
+   - Copia tu **Public Key**
+
+5. **Configura las variables de entorno:**
+   - Crea un archivo `.env` en la raíz del proyecto
+   - Agrega tus credenciales:
+   ```env
+   VITE_EMAILJS_SERVICE_ID=tu_service_id
+   VITE_EMAILJS_TEMPLATE_ID=tu_template_id
+   VITE_EMAILJS_PUBLIC_KEY=tu_public_key
+   ```
+
+6. **Reinicia el servidor de desarrollo**
 
 ## 🏗️ Scripts Disponibles
 

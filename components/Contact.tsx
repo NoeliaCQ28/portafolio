@@ -1,5 +1,6 @@
 import React, { forwardRef, useState } from 'react';
 import { motion } from 'framer-motion';
+import emailjs from '@emailjs/browser';
 import { MailIcon, LinkedinIcon, GithubIcon } from './Icons';
 
 interface FormData {
@@ -54,14 +55,38 @@ const Contact = forwardRef<HTMLElement>((props, ref) => {
 
     setIsSubmitting(true);
 
-    // Simular envío (aquí integrarías tu backend o servicio de email)
-    setTimeout(() => {
+    try {
+      // Configuración de EmailJS
+      // Para obtener estas credenciales, ve a https://www.emailjs.com/
+      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID || 'YOUR_SERVICE_ID';
+      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'YOUR_TEMPLATE_ID';
+      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'YOUR_PUBLIC_KEY';
+
+      // Enviar email usando EmailJS
+      await emailjs.send(
+        serviceId,
+        templateId,
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          message: formData.message,
+          to_name: 'Tu Nombre', // Cambia esto por tu nombre
+        },
+        publicKey
+      );
+
       setIsSubmitting(false);
       setSubmitStatus('success');
       setFormData({ name: '', email: '', message: '' });
 
       setTimeout(() => setSubmitStatus('idle'), 5000);
-    }, 1500);
+    } catch (error) {
+      console.error('Error al enviar el email:', error);
+      setIsSubmitting(false);
+      setSubmitStatus('error');
+
+      setTimeout(() => setSubmitStatus('idle'), 5000);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -176,6 +201,16 @@ const Contact = forwardRef<HTMLElement>((props, ref) => {
                   className="mt-4 p-4 bg-green-100 dark:bg-green-900/30 border border-green-500 rounded-lg text-green-700 dark:text-green-400 text-center"
                 >
                   ¡Mensaje enviado con éxito! Te responderé pronto.
+                </motion.div>
+              )}
+
+              {submitStatus === 'error' && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="mt-4 p-4 bg-red-100 dark:bg-red-900/30 border border-red-500 rounded-lg text-red-700 dark:text-red-400 text-center"
+                >
+                  Hubo un error al enviar el mensaje. Por favor, intenta de nuevo o contáctame directamente por email.
                 </motion.div>
               )}
             </form>
