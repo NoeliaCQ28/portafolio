@@ -1,24 +1,25 @@
 import React, { forwardRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import {
-  ReactIcon,
-  TypeScriptIcon,
-  JavaScriptIcon,
-  NodeIcon,
-  TailwindIcon,
-  PythonIcon,
-  GitIcon,
-  DockerIcon,
-  MongoDBIcon,
-  NextJSIcon,
-  FirebaseIcon,
-  GraphQLIcon,
-  PostgreSQLIcon,
-} from './TechIcons';
+  SiReact,
+  SiTypescript,
+  SiJavascript,
+  SiNodedotjs,
+  SiTailwindcss,
+  SiPython,
+  SiGit,
+  SiDocker,
+  SiMongodb,
+  SiNextdotjs,
+  SiFirebase,
+  SiGraphql,
+  SiPostgresql,
+} from 'react-icons/si';
+import { IconType } from 'react-icons';
 
 interface Technology {
   name: string;
-  icon: React.ComponentType<{ className?: string }>;
+  icon: IconType;
   level: 'Beginner' | 'Intermediate' | 'Advanced' | 'Expert';
   levelNumber: number;
   years: string;
@@ -31,7 +32,7 @@ interface Technology {
 const technologies: Technology[] = [
   {
     name: 'React',
-    icon: ReactIcon,
+    icon: SiReact,
     level: 'Expert',
     levelNumber: 95,
     years: '3+ años',
@@ -42,7 +43,7 @@ const technologies: Technology[] = [
   },
   {
     name: 'TypeScript',
-    icon: TypeScriptIcon,
+    icon: SiTypescript,
     level: 'Advanced',
     levelNumber: 90,
     years: '2+ años',
@@ -53,7 +54,7 @@ const technologies: Technology[] = [
   },
   {
     name: 'JavaScript',
-    icon: JavaScriptIcon,
+    icon: SiJavascript,
     level: 'Expert',
     levelNumber: 98,
     years: '4+ años',
@@ -64,7 +65,7 @@ const technologies: Technology[] = [
   },
   {
     name: 'Next.js',
-    icon: NextJSIcon,
+    icon: SiNextdotjs,
     level: 'Advanced',
     levelNumber: 85,
     years: '2+ años',
@@ -75,7 +76,7 @@ const technologies: Technology[] = [
   },
   {
     name: 'Tailwind CSS',
-    icon: TailwindIcon,
+    icon: SiTailwindcss,
     level: 'Expert',
     levelNumber: 92,
     years: '2+ años',
@@ -86,7 +87,7 @@ const technologies: Technology[] = [
   },
   {
     name: 'Node.js',
-    icon: NodeIcon,
+    icon: SiNodedotjs,
     level: 'Advanced',
     levelNumber: 88,
     years: '3+ años',
@@ -97,7 +98,7 @@ const technologies: Technology[] = [
   },
   {
     name: 'Python',
-    icon: PythonIcon,
+    icon: SiPython,
     level: 'Advanced',
     levelNumber: 85,
     years: '2+ años',
@@ -108,7 +109,7 @@ const technologies: Technology[] = [
   },
   {
     name: 'GraphQL',
-    icon: GraphQLIcon,
+    icon: SiGraphql,
     level: 'Intermediate',
     levelNumber: 80,
     years: '1+ año',
@@ -119,7 +120,7 @@ const technologies: Technology[] = [
   },
   {
     name: 'MongoDB',
-    icon: MongoDBIcon,
+    icon: SiMongodb,
     level: 'Advanced',
     levelNumber: 85,
     years: '2+ años',
@@ -130,7 +131,7 @@ const technologies: Technology[] = [
   },
   {
     name: 'PostgreSQL',
-    icon: PostgreSQLIcon,
+    icon: SiPostgresql,
     level: 'Advanced',
     levelNumber: 88,
     years: '3+ años',
@@ -141,7 +142,7 @@ const technologies: Technology[] = [
   },
   {
     name: 'Git',
-    icon: GitIcon,
+    icon: SiGit,
     level: 'Expert',
     levelNumber: 93,
     years: '4+ años',
@@ -152,7 +153,7 @@ const technologies: Technology[] = [
   },
   {
     name: 'Docker',
-    icon: DockerIcon,
+    icon: SiDocker,
     level: 'Intermediate',
     levelNumber: 82,
     years: '1+ año',
@@ -163,7 +164,7 @@ const technologies: Technology[] = [
   },
   {
     name: 'Firebase',
-    icon: FirebaseIcon,
+    icon: SiFirebase,
     level: 'Intermediate',
     levelNumber: 80,
     years: '1+ año',
@@ -359,37 +360,6 @@ const Skills = forwardRef<HTMLElement>((props, ref) => {
         >
           {filteredTechs.map((tech, index) => (
             <TechCard key={tech.name} tech={tech} index={index} />
-          ))}
-        </motion.div>
-
-        {/* Stats Summary */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto"
-        >
-          {[
-            { number: technologies.length, label: 'Tecnologías', icon: '💻' },
-            { number: technologies.filter(t => t.level === 'Expert' || t.level === 'Advanced').length, label: 'Nivel Avanzado+', icon: '⭐' },
-            { number: technologies.filter(t => t.category === 'frontend').length, label: 'Frontend', icon: '🎨' },
-            { number: technologies.filter(t => t.category === 'backend').length, label: 'Backend', icon: '⚙️' },
-          ].map((stat, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, scale: 0 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg border border-slate-200/50 dark:border-slate-700/50 text-center"
-            >
-              <div className="text-3xl mb-2">{stat.icon}</div>
-              <div className="text-3xl font-bold bg-gradient-to-r from-orange-600 to-pink-600 bg-clip-text text-transparent mb-1">
-                {stat.number}
-              </div>
-              <div className="text-sm text-slate-600 dark:text-slate-400">{stat.label}</div>
-            </motion.div>
           ))}
         </motion.div>
       </div>
